@@ -379,7 +379,7 @@ private void updateCounts() {
                 writer.write("Isi TextArea : \n"+textArea.getText() + "\n");
                 JOptionPane.showMessageDialog(null, "Hasil disimpan ke 'hasil_penghitungan.txt'");
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Gagal menyimpan file");
+                JOptionPane.showMessageDialog(null, "Gagal menyimpan file!");
             }
     }//GEN-LAST:event_jButton4ActionPerformed
 
