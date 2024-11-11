@@ -1,3 +1,11 @@
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -28,25 +36,53 @@ public class HitungKata extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TextArea = new javax.swing.JTextArea();
+        textArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        searchField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        wordCountLabel = new javax.swing.JTextField();
+        charCountLabel = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        searchCountLabel = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        Jumlah = new javax.swing.JLabel();
+        paragraphCountLabel = new javax.swing.JTextField();
+        sentenceCountLabel = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perhitungan Kata", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        TextArea.setColumns(20);
-        TextArea.setRows(5);
-        jScrollPane1.setViewportView(TextArea);
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textAreaKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(textArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 200;
+        gridBagConstraints.insets = new java.awt.Insets(0, 39, 0, 0);
         jPanel1.add(jScrollPane1, gridBagConstraints);
 
+        jButton1.setFont(new java.awt.Font("News701 BT", 1, 14)); // NOI18N
         jButton1.setText("Hitung");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,21 +90,226 @@ public class HitungKata extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 39, 19, 0);
         jPanel1.add(jButton1, gridBagConstraints);
 
+        jButton2.setFont(new java.awt.Font("News701 BT", 1, 14)); // NOI18N
         jButton2.setText("Hapus");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 19, 0);
         jPanel1.add(jButton2, gridBagConstraints);
 
+        jButton3.setFont(new java.awt.Font("News701 BT", 1, 14)); // NOI18N
         jButton3.setText("Keluar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 19, 0);
+        jPanel1.add(jButton3, gridBagConstraints);
+
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(41, 0, 0, 0);
+        jPanel1.add(searchField, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Cari Kata : ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(44, 0, 8, 0);
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        wordCountLabel.setFont(new java.awt.Font("Trajan Pro 3", 0, 14)); // NOI18N
+        wordCountLabel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        wordCountLabel.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(12, 5, 5, 5);
+        jPanel2.add(wordCountLabel, gridBagConstraints);
+
+        charCountLabel.setFont(new java.awt.Font("Trajan Pro 3", 0, 14)); // NOI18N
+        charCountLabel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        charCountLabel.setEnabled(false);
+        charCountLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                charCountLabelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(12, 5, 5, 5);
+        jPanel2.add(charCountLabel, gridBagConstraints);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Jumlah Kata");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.insets = new java.awt.Insets(12, 5, 5, 5);
+        jPanel2.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Jumlah Karakter");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.insets = new java.awt.Insets(12, 5, 5, 5);
+        jPanel2.add(jLabel3, gridBagConstraints);
+
+        searchCountLabel.setFont(new java.awt.Font("Trajan Pro 3", 0, 14)); // NOI18N
+        searchCountLabel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        searchCountLabel.setEnabled(false);
+        searchCountLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchCountLabelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(11, 5, 5, 5);
+        jPanel2.add(searchCountLabel, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Jumlah Kata Yang Dicari");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.insets = new java.awt.Insets(13, 5, 5, 5);
+        jPanel2.add(jLabel6, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(18, 0, 30, 26);
+        jPanel1.add(jPanel2, gridBagConstraints);
+
+        jButton4.setFont(new java.awt.Font("News701 BT", 1, 14)); // NOI18N
+        jButton4.setText("Simpan Teks");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 19, 15);
+        jPanel1.add(jButton4, gridBagConstraints);
+
+        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        Jumlah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Jumlah.setText("Jumlah Paragraf");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(Jumlah, gridBagConstraints);
+
+        paragraphCountLabel.setFont(new java.awt.Font("Trajan Pro 3", 0, 14)); // NOI18N
+        paragraphCountLabel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        paragraphCountLabel.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(paragraphCountLabel, gridBagConstraints);
+
+        sentenceCountLabel.setFont(new java.awt.Font("Trajan Pro 3", 0, 14)); // NOI18N
+        sentenceCountLabel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        sentenceCountLabel.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        jPanel1.add(jButton3, gridBagConstraints);
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(sentenceCountLabel, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Jumlah Kalimat");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(jLabel4, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 28, 0);
+        jPanel1.add(jPanel3, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -82,11 +323,11 @@ private void updateCounts() {
         int paragraphCount = countParagraphs(text);
         int searchCount = searchWord(text, searchField.getText());
 
-        wordCountLabel.setText("Jumlah Kata: " + wordCount);
-        charCountLabel.setText("Jumlah Karakter: " + charCount);
-        sentenceCountLabel.setText("Jumlah Kalimat: " + sentenceCount);
-        paragraphCountLabel.setText("Jumlah Paragraf: " + paragraphCount);
-        searchCountLabel.setText("Jumlah Kata Ditemukan: " + searchCount);
+        wordCountLabel.setText(wordCount+"");
+        charCountLabel.setText(charCount+"");
+        sentenceCountLabel.setText(sentenceCount+"");
+        paragraphCountLabel.setText(paragraphCount+"");
+        searchCountLabel.setText(searchCount+"");
     }
 
     private int countWords(String text) {
@@ -115,8 +356,64 @@ private void updateCounts() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        updateCounts();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void charCountLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_charCountLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_charCountLabelActionPerformed
+
+    private void searchCountLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCountLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCountLabelActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("hasil_penghitungan.txt"))) {
+                writer.write("Hasil Penghitungan:\n");
+                writer.write("Jumlah Kata : "+wordCountLabel.getText() + "\n");
+                writer.write("Jumlah Karakter : "+charCountLabel.getText() + "\n");
+                writer.write("Jumlah Kalimat : "+sentenceCountLabel.getText() + "\n");
+                writer.write("Jumlah Paragraf : "+paragraphCountLabel.getText() + "\n");
+                writer.write("Jumlah Kata Ditemukan : "+searchCountLabel.getText() + "\n");
+                writer.write("Isi TextArea : \n"+textArea.getText() + "\n");
+                JOptionPane.showMessageDialog(null, "Hasil disimpan ke 'hasil_penghitungan.txt'");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Gagal menyimpan file");
+            }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void textAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaKeyReleased
+        // TODO add your handling code here:
+        updateCounts();
+    }//GEN-LAST:event_textAreaKeyReleased
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        // TODO add your handling code here:
+        if(!textArea.getText().isEmpty()){
+        updateCounts();
+        }
+    }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        textArea.setText("");
+        searchField.setText("");
+        wordCountLabel.setText("");
+        charCountLabel.setText("");
+        sentenceCountLabel.setText("");
+        paragraphCountLabel.setText("");
+        searchCountLabel.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,11 +451,26 @@ private void updateCounts() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextArea;
+    private javax.swing.JLabel Jumlah;
+    private javax.swing.JTextField charCountLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField paragraphCountLabel;
+    private javax.swing.JTextField searchCountLabel;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JTextField sentenceCountLabel;
+    private javax.swing.JTextArea textArea;
+    private javax.swing.JTextField wordCountLabel;
     // End of variables declaration//GEN-END:variables
 }
